@@ -1,0 +1,53 @@
+version: "3.3"
+services:
+
+    app:
+        build:
+            context: ./
+        restart: always
+        volumes:
+            - "./:/var/www/app"
+        networks:
+            - backend
+        depends_on:
+            - db
+
+    db:
+        image: mysql:8.0
+        restart: always
+        environment:
+            MYSQL_DATABASE: cocktail-menu
+            MYSQL_ROOT_PASSWORD: root
+        volumes:
+            - "db-data:/var/lib/mysql"
+        ports:
+            - "3306:3306"
+        networks:
+            - backend
+
+    nginx:
+        build:
+            context: ./.docker/nginx
+        restart: always
+        ports:
+            - "8000:80"
+        networks:
+            - backend
+        depends_on:
+            - app
+    
+    adminer:
+        image: adminer:4.7
+        restart: always
+        ports:
+            - "8080:8080"
+        networks:
+            - backend
+        depends_on:
+            - db
+
+networks:
+    backend:
+
+volumes:
+    db-data:
