@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import IngredientList from './Home/IngredientList';
+import CocktailList from './Home/CocktailList';
 
 class Home extends Component {
     constructor (props) {
@@ -32,11 +33,7 @@ class Home extends Component {
                         <IngredientList selectedIngredient={selectedIngredient} onSelectIngredient={this.handleSelectIngredient} />
                     </div>
                     <div className="col-md-4">
-                        <div className="card">
-                            <div className="card-header">THis is a kind of maig</div>
-
-                            <div className="card-body">I'm an example component!</div>
-                        </div>
+                        <CocktailList selectedIngredient={selectedIngredient} />
                     </div>
                     <div className="col-md-4">
                         <div className="card">
