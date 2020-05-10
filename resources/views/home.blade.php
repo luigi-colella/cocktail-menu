@@ -19,5 +19,7 @@
             </div>
         </div>
     </div>
+
+    <div id="home-app"></div>
 </div>
 @endsection
