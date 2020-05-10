@@ -12,7 +12,7 @@ class IngredientController extends Controller
      * 
      * @param CocktailDB $cocktailDB
      * 
-     * @return Collection
+     * @return Collection[\App\Entities\Ingredient]
      */
     public function index(CocktailDB $cocktailDB): Collection
     {

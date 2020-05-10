@@ -19,3 +19,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('/ingredients', 'IngredientController@index');
+Route::get('/cocktails', 'CocktailController@index');
