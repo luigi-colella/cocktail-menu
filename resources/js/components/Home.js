@@ -2,20 +2,39 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import IngredientList from './Home/IngredientList';
 import CocktailList from './Home/CocktailList';
+import api from '../services/api';
+import Spinner from './Home/Spinner';
 
 class Home extends Component {
     constructor (props) {
         super(props)
 
         this.state = {
-            selectedIngredient: null,
+            fetchingIngredients: false,
+            ingredientNames: [],
+            selectedIngredient: null
         }
 
         this.handleSelectIngredient = this.handleSelectIngredient.bind(this);
     }
 
+    componentDidMount () {
+        this.setState({fetchingIngredients: true});
+
+        api.getIngredients()
+            .then((data) => {
+                // map the response data into an array of names of ingredients and sort it
+                let ingredientNames = data.map(({name}) => name).sort();
+                this.setState({ ingredientNames: ingredientNames })
+            })
+            .finally(() => {
+                this.setState({ fetchingIngredients: false })
+            })
+    }
+
     /**
-     * Save the ingredient selected by the user in the state.
+     * Save the ingredient selected by the user in the state
+     * and fetch the related drinks.
      * 
      * @param {string} ingredient 
      */
@@ -24,16 +43,26 @@ class Home extends Component {
     }
 
     render () {
-        let { selectedIngredient } = this.state
+        let { fetchingIngredients, ingredientNames, selectedIngredient } = this.state
 
         return (
             <div className="container">
                 <div className="row justify-content-center">
                     <div className="col-md-4">
-                        <IngredientList selectedIngredient={selectedIngredient} onSelectIngredient={this.handleSelectIngredient} />
+                        {fetchingIngredients ?
+                            <Spinner />
+                            :
+                            <IngredientList
+                                ingredientNames={ingredientNames}
+                                selectedIngredient={selectedIngredient}
+                                onSelectIngredient={this.handleSelectIngredient}
+                            />
+                        }
                     </div>
                     <div className="col-md-4">
-                        <CocktailList selectedIngredient={selectedIngredient} />
+                        <CocktailList
+                            selectedIngredient={selectedIngredient}
+                        />
                     </div>
                     <div className="col-md-4">
                         <div className="card">
