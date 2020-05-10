@@ -9,3 +9,9 @@ php artisan key:generate
 
 # Install Laravel Mix dependencies
 yarn install --no-bin-links
+
+# Run db migrations
+php artisan migrate
+
+# Run db seeders
+php artisan db:seed
