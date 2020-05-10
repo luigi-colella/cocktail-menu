@@ -4,6 +4,7 @@ import IngredientList from './Home/IngredientList';
 import CocktailList from './Home/CocktailList';
 import api from '../services/api';
 import Spinner from './Home/Spinner';
+import Card from './Home/Card';
 
 class Home extends Component {
     constructor (props) {
@@ -12,12 +13,16 @@ class Home extends Component {
         this.state = {
             fetchingIngredients: false,
             ingredientNames: [],
-            selectedIngredient: null
+            selectedIngredient: null,
+            cocktailsNames: [],
         }
 
         this.handleSelectIngredient = this.handleSelectIngredient.bind(this);
     }
 
+    /**
+     * When the component has been mounted, fetch the ingredients list.
+     */
     componentDidMount () {
         this.setState({fetchingIngredients: true});
 
@@ -43,26 +48,30 @@ class Home extends Component {
     }
 
     render () {
-        let { fetchingIngredients, ingredientNames, selectedIngredient } = this.state
+        let { fetchingIngredients, ingredientNames, selectedIngredient, cocktailsNames } = this.state
+        let titleForIngredientList = selectedIngredient ? 'You selected: ' + selectedIngredient : 'Choose an ingredient!'
+        let titleForCocktailList = 'Suggested drinks for: ' + selectedIngredient
 
         return (
             <div className="container">
                 <div className="row justify-content-center">
                     <div className="col-md-4">
-                        {fetchingIngredients ?
-                            <Spinner />
-                            :
-                            <IngredientList
-                                ingredientNames={ingredientNames}
-                                selectedIngredient={selectedIngredient}
-                                onSelectIngredient={this.handleSelectIngredient}
-                            />
-                        }
+                        <Card title={titleForIngredientList}>
+                            {fetchingIngredients ?
+                                <Spinner />
+                                :
+                                <IngredientList
+                                    ingredientNames={ingredientNames}
+                                    selectedIngredient={selectedIngredient}
+                                    onSelectIngredient={this.handleSelectIngredient}
+                                />
+                            }
+                        </Card>
                     </div>
                     <div className="col-md-4">
-                        <CocktailList
-                            selectedIngredient={selectedIngredient}
-                        />
+                        <Card title={titleForCocktailList}>
+                            <CocktailList cocktails={cocktailsNames} />
+                        </Card>
                     </div>
                     <div className="col-md-4">
                         <div className="card">
