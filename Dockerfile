@@ -8,8 +8,12 @@ COPY ./composer.phar /usr/local/bin/composer
 
 # Install PHP extensions needed for Laravel
 RUN apt-get update \
-    && apt-get install libzip-dev unzip -y \
+    && apt-get install -y libzip-dev unzip \
     && docker-php-ext-install bcmath pdo_mysql zip
 
-# Install Node.js and NPM to build frontend assets
-RUN apt-get install -y nodejs npm
+# Install Node.js and some libraries to build frontend assets
+RUN curl -sL https://deb.nodesource.com/setup_12.x | bash \
+    && apt-get install -y nodejs \
+    && npm install -g yarn \
+    && npm install -g cross-env
+
