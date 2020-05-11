@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
 
-export default class IngredientList extends Component {
+interface Props {
+    ingredientNames: string[],
+    selectedIngredient: string|null,
+    onSelectIngredient: { (name: string): void }
+}
+
+export default class IngredientList extends Component<Props, {}> {
     render () {
         let { ingredientNames, selectedIngredient, onSelectIngredient } = this.props
 

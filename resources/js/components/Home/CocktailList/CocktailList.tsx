@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
+import { Cocktail } from '../../../types';
 
-export default class CocktailList extends Component {
+interface Props {
+    cocktails: Cocktail[],
+    onSelectCocktail: (cocktail: Cocktail) => void
+}
+
+export default class CocktailList extends Component<Props> {
     render () {
         let { cocktails, onSelectCocktail } = this.props
 

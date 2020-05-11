@@ -1,6 +1,11 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 
-export default function Card (props) {
+interface Props {
+    title: string,
+    children: ReactNode
+}
+
+export default function Card (props: Props) {
     return (
         <div className="card">
             <div className="card-header">{props.title}</div>

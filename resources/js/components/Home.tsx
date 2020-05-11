@@ -6,9 +6,19 @@ import api from '../services/api';
 import Spinner from './Home/Spinner';
 import Card from './Home/Card';
 import CocktailOrder from './Home/CocktailOrder/CocktailOrder';
+import { Cocktail } from '../types';
 
-class Home extends Component {
-    constructor (props) {
+interface State {
+    fetchingIngredients: boolean,
+    ingredientNames: string[],
+    selectedIngredient: string|null,
+    fetchingCocktails: boolean,
+    cocktails: Cocktail[],
+    selectedCocktails: Cocktail[],
+}
+
+class Home extends Component<Readonly<{}>, State> {
+    constructor (props: Readonly<{}>) {
         super(props)
 
         this.state = {
@@ -44,10 +54,8 @@ class Home extends Component {
     /**
      * Save the ingredient selected by the user in the state
      * and fetch the related drinks.
-     * 
-     * @param {string} ingredient 
      */
-    handleSelectIngredient (ingredient) {
+    handleSelectIngredient (ingredient: string) {
         this.setState({
             fetchingCocktails: true,
             selectedIngredient: ingredient
@@ -56,7 +64,7 @@ class Home extends Component {
         api.getCocktailsByIngredient(ingredient)
             .then(data => {
                 // sort the cocktails by name before to save them
-                let cocktails = data.sort((cocktailA, cocktailB) => { return cocktailA.name > cocktailB.name })
+                let cocktails = data.sort((cocktailA, cocktailB) => { return cocktailA.name > cocktailB.name ? 1 : -1 })
                 this.setState({ cocktails: cocktails })
             })
             .finally(() => {
@@ -66,10 +74,8 @@ class Home extends Component {
 
     /**
      * Add the cocktail in the user's order.
-     * 
-     * @param {Object} cocktail 
      */
-    handleSelectCocktail (cocktail) {
+    handleSelectCocktail (cocktail: Cocktail) {
         this.setState({
             selectedCocktails: this.state.selectedCocktails.concat([cocktail])
         })

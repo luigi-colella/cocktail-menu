@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function Spinner () {
+export default function Spinner (): JSX.Element {
     return (
         <div className="d-flex justify-content-center">
             <div className="spinner-border" role="status">
