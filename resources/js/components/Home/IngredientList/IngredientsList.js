@@ -12,8 +12,8 @@ export default class IngredientList extends Component {
                             {ingredientNames.map(name => {
                                 let className = selectedIngredient === name ? 'bg-success text-white' : ''
                                 return (
-                                    <tr key={name} onClick={() => { onSelectIngredient(name) }}>
-                                        <td className={'pointer-on-hover ' + className}>{name}</td>
+                                    <tr className="hover-effect" key={name} onClick={() => { onSelectIngredient(name) }}>
+                                        <td className={' ' + className}>{name}</td>
                                     </tr>
                                 )
                             })}

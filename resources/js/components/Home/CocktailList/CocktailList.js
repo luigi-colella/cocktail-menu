@@ -7,18 +7,24 @@ export default class CocktailList extends Component {
         return (
             <div>
                 {cocktails && cocktails.length ?
-                    <ul className="list-unstyled">
+                    <div className="row">
                         {cocktails.map(cocktail => {
                             return (
-                                <li className="media align-items-center mb-3 pointer-on-hover" key={cocktail.name} onClick={() => { onSelectCocktail(cocktail) }}>
-                                    <img src={cocktail.thumbnailUrl} className="mr-3 w-25 border border-dark" style={{width: '20%'}} alt={cocktail.name} />
-                                    <div className="media-body">
-                                        <h5 className="mt-0 mb-1">{cocktail.name}</h5>
+                                <div className="col-sm-12 mb-3" key={cocktail.name} onClick={() => { onSelectCocktail(cocktail) }}>
+                                    <div className="card hover-effect">
+                                        <div className="card-body">
+                                            <div className="media">
+                                                <img className="align-self-center mr-3" src={cocktail.thumbnailUrl} alt={cocktail.name} style={{ width: '25%' }} />
+                                                <div className="media-body align-self-center">
+                                                    <h5 className="mt-0">{cocktail.name}</h5>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                </li>
+                                </div>
                             )
                         })}
-                    </ul>
+                    </div>
                     :
                     'No suggested drinks 🍻'
                 }

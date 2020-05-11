@@ -1,4 +1,8 @@
 
-.pointer-on-hover {
-    cursor: pointer;
+.hover-effect {
+    transition: background-color .2s;
+    &:hover {
+        cursor: pointer;
+        background-color: $gray;
+    }
 }
