@@ -22,8 +22,10 @@ export default class CocktailOrder extends Component {
                                 <div className="col-sm-12 mb-3" key={cocktail.name}>
                                     <div className="card">
                                         <div className="card-body">
-                                            <h5 className="card-title">{cocktail.name}</h5>
-                                            <p className="card-text">{cocktailsCount[cocktail.name]}</p>
+                                            <h5 className="card-title">
+                                                <span className="float-left">{cocktail.name}</span>
+                                                <span className="float-right">{cocktailsCount[cocktail.name]}</span>
+                                            </h5>
                                         </div>
                                     </div>
                                 </div>
