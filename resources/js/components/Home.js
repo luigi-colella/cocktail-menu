@@ -5,6 +5,7 @@ import CocktailList from './Home/CocktailList';
 import api from '../services/api';
 import Spinner from './Home/Spinner';
 import Card from './Home/Card';
+import CocktailOrder from './Home/CocktailOrder/CocktailOrder';
 
 class Home extends Component {
     constructor (props) {
@@ -110,6 +111,9 @@ class Home extends Component {
                     </div>
                     <div className="col-md-4">
                         <Card title={titleForSelectedCocktails}>
+                            <CocktailOrder
+                                cocktails={selectedCocktails}
+                            />
                         </Card>
                     </div>
                 </div>
