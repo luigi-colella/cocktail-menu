@@ -16,9 +16,11 @@ class Home extends Component {
             selectedIngredient: null,
             fetchingCocktails: false,
             cocktails: [],
+            selectedCocktails: [],
         }
 
         this.handleSelectIngredient = this.handleSelectIngredient.bind(this);
+        this.handleSelectCocktail = this.handleSelectCocktail.bind(this);
     }
 
     /**
@@ -61,10 +63,22 @@ class Home extends Component {
             })
     }
 
+    /**
+     * Add the cocktail in the user's order.
+     * 
+     * @param {Object} cocktail 
+     */
+    handleSelectCocktail (cocktail) {
+        this.setState({
+            selectedCocktails: this.state.selectedCocktails.concat([cocktail])
+        })
+    }
+
     render () {
-        let { fetchingIngredients, ingredientNames, selectedIngredient, fetchingCocktails, cocktails } = this.state
+        let { fetchingIngredients, ingredientNames, selectedIngredient, fetchingCocktails, cocktails, selectedCocktails } = this.state
         let titleForIngredientList = selectedIngredient ? 'You selected: ' + selectedIngredient : 'Choose an ingredient!'
         let titleForCocktailList = 'Suggested drinks for: ' + selectedIngredient
+        let titleForSelectedCocktails = 'Selected cocktails: ' + selectedCocktails.length
 
         return (
             <div className="container">
@@ -87,16 +101,16 @@ class Home extends Component {
                             {fetchingCocktails ?
                                 <Spinner />
                                 :
-                                <CocktailList cocktails={cocktails} />
+                                <CocktailList
+                                    cocktails={cocktails}
+                                    onSelectCocktail={this.handleSelectCocktail}
+                                />
                             }
                         </Card>
                     </div>
                     <div className="col-md-4">
-                        <div className="card">
-                            <div className="card-header">THis is a kind of maig</div>
-
-                            <div className="card-body">I'm an example component!</div>
-                        </div>
+                        <Card title={titleForSelectedCocktails}>
+                        </Card>
                     </div>
                 </div>
             </div>
