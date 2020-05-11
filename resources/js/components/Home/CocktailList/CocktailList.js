@@ -9,10 +9,10 @@ export default class CocktailList extends Component {
                 {cocktails && cocktails.length ?
                     <table className="table table-hover">
                         <tbody>
-                            {cocktails.map(name => {
+                            {cocktails.map(cocktail => {
                                 return (
-                                    <tr key={name}>
-                                        <td>{name}</td>
+                                    <tr key={cocktail.name}>
+                                        <td>{cocktail.name}</td>
                                     </tr>
                                 )
                             })}

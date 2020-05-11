@@ -14,7 +14,8 @@ class Home extends Component {
             fetchingIngredients: false,
             ingredientNames: [],
             selectedIngredient: null,
-            cocktailsNames: [],
+            fetchingCocktails: false,
+            cocktails: [],
         }
 
         this.handleSelectIngredient = this.handleSelectIngredient.bind(this);
@@ -44,11 +45,24 @@ class Home extends Component {
      * @param {string} ingredient 
      */
     handleSelectIngredient (ingredient) {
-        this.setState({ selectedIngredient: ingredient })
+        this.setState({
+            fetchingCocktails: true,
+            selectedIngredient: ingredient
+        })
+
+        api.getCocktailsByIngredient(ingredient)
+            .then(data => {
+                // sort the cocktails by name before to save them
+                let cocktails = data.sort((cocktailA, cocktailB) => { return cocktailA.name > cocktailB.name })
+                this.setState({ cocktails: cocktails })
+            })
+            .finally(() => {
+                this.setState({ fetchingCocktails: false })
+            })
     }
 
     render () {
-        let { fetchingIngredients, ingredientNames, selectedIngredient, cocktailsNames } = this.state
+        let { fetchingIngredients, ingredientNames, selectedIngredient, fetchingCocktails, cocktails } = this.state
         let titleForIngredientList = selectedIngredient ? 'You selected: ' + selectedIngredient : 'Choose an ingredient!'
         let titleForCocktailList = 'Suggested drinks for: ' + selectedIngredient
 
@@ -70,7 +84,11 @@ class Home extends Component {
                     </div>
                     <div className="col-md-4">
                         <Card title={titleForCocktailList}>
-                            <CocktailList cocktails={cocktailsNames} />
+                            {fetchingCocktails ?
+                                <Spinner />
+                                :
+                                <CocktailList cocktails={cocktails} />
+                            }
                         </Card>
                     </div>
                     <div className="col-md-4">
