@@ -7,7 +7,8 @@ import Spinner from './Home/Spinner';
 import Card from './Home/Card';
 import CocktailOrder from './Home/CocktailOrder/CocktailOrder';
 import { Cocktail, SelectedCocktails, Ingredient } from '../types';
-import { get, omit, sum } from 'lodash';
+import { get, omit, sum, random, isEmpty } from 'lodash';
+import ConfirmModal from './Home/ConfirmModal';
 
 interface State {
     fetchingIngredients: boolean,
@@ -15,7 +16,8 @@ interface State {
     selectedIngredient: string|null,
     fetchingCocktails: boolean,
     cocktails: Cocktail[],
-    selectedCocktails: SelectedCocktails
+    selectedCocktails: SelectedCocktails,
+    confirmModalId: string
 }
 
 class Home extends Component<Readonly<{}>, State> {
@@ -29,12 +31,15 @@ class Home extends Component<Readonly<{}>, State> {
             fetchingCocktails: false,
             cocktails: [],
             selectedCocktails: {},
+            confirmModalId: 'confirm-modal-' + random(5)
         }
 
         this.handleSelectIngredient = this.handleSelectIngredient.bind(this);
         this.handleAddCocktail = this.handleAddCocktail.bind(this);
         this.handleSubtractCocktail = this.handleSubtractCocktail.bind(this);
         this.handleRemoveCocktail = this.handleRemoveCocktail.bind(this);
+        this.submitOrder = this.submitOrder.bind(this)
+        this.handleStartNewOrder = this.handleStartNewOrder.bind(this)
     }
 
     /**
@@ -71,7 +76,7 @@ class Home extends Component<Readonly<{}>, State> {
                 this.setState({ cocktails: cocktails })
             })
             .finally(() => {
-                this.setState({ fetchingCocktails: false })
+                this.setState({ fetchingCocktails: false })    
             })
     }
 
@@ -106,11 +111,30 @@ class Home extends Component<Readonly<{}>, State> {
         this.setState({ selectedCocktails: omit(this.state.selectedCocktails, [cocktailName]) })
     }
 
+    /**
+     * Submit the current order of cocktails.
+     */
+    submitOrder () {
+        $('#' + this.state.confirmModalId).modal('show')
+    }
+
+    /**
+     * Clear the current order and let user start a brand new one.
+     */
+    handleStartNewOrder () {
+        this.setState({
+            selectedIngredient: null,
+            cocktails: [],
+            selectedCocktails: {},
+        })
+    }
+
     render () {
         let { fetchingIngredients, ingredientNames, selectedIngredient, fetchingCocktails, cocktails, selectedCocktails } = this.state
         let titleForIngredientList = selectedIngredient ? 'You selected: ' + selectedIngredient : 'Choose an ingredient!'
         let titleForCocktailList = 'Suggested drinks for: ' + selectedIngredient
         let titleForSelectedCocktails = 'Selected cocktails: ' + sum(Object.values(selectedCocktails))
+        let showSubmitButton = !isEmpty(selectedCocktails)
 
         return (
             <div className="container">
@@ -141,7 +165,10 @@ class Home extends Component<Readonly<{}>, State> {
                         </Card>
                     </div>
                     <div className="col-md-4">
-                        <Card title={titleForSelectedCocktails}>
+                        <Card
+                            title={titleForSelectedCocktails}
+                            actionButton={showSubmitButton ? { text: 'Order!', cb: this.submitOrder } : undefined}
+                        >
                             <CocktailOrder
                                 cocktails={selectedCocktails}
                                 onAddCocktail={this.handleAddCocktail}
@@ -151,6 +178,13 @@ class Home extends Component<Readonly<{}>, State> {
                         </Card>
                     </div>
                 </div>
+
+                <ConfirmModal
+                    title="Successful order!"
+                    text="Your cocktails has been ordered. Cheers!"
+                    modalId={this.state.confirmModalId}
+                    onStartNewOrder={this.handleStartNewOrder}
+                />
             </div>
         )
     }
