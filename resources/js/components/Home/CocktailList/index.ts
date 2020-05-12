@@ -1,1 +1,1 @@
-export { default } from './CocktailList';
+export { default } from './CocktailList'
