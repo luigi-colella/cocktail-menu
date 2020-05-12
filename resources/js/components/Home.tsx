@@ -6,7 +6,8 @@ import api from '../services/api';
 import Spinner from './Home/Spinner';
 import Card from './Home/Card';
 import CocktailOrder from './Home/CocktailOrder/CocktailOrder';
-import { Cocktail } from '../types';
+import { Cocktail, SelectedCocktails } from '../types';
+import { get, omit, sum } from 'lodash';
 
 interface State {
     fetchingIngredients: boolean,
@@ -14,7 +15,7 @@ interface State {
     selectedIngredient: string|null,
     fetchingCocktails: boolean,
     cocktails: Cocktail[],
-    selectedCocktails: Cocktail[],
+    selectedCocktails: SelectedCocktails
 }
 
 class Home extends Component<Readonly<{}>, State> {
@@ -27,11 +28,13 @@ class Home extends Component<Readonly<{}>, State> {
             selectedIngredient: null,
             fetchingCocktails: false,
             cocktails: [],
-            selectedCocktails: [],
+            selectedCocktails: {},
         }
 
         this.handleSelectIngredient = this.handleSelectIngredient.bind(this);
-        this.handleSelectCocktail = this.handleSelectCocktail.bind(this);
+        this.handleAddCocktail = this.handleAddCocktail.bind(this);
+        this.handleSubtractCocktail = this.handleSubtractCocktail.bind(this);
+        this.handleRemoveCocktail = this.handleRemoveCocktail.bind(this);
     }
 
     /**
@@ -73,19 +76,41 @@ class Home extends Component<Readonly<{}>, State> {
     }
 
     /**
-     * Add the cocktail in the user's order.
+     * Add a quantity of the cocktail in the user's order.
      */
-    handleSelectCocktail (cocktail: Cocktail) {
+    handleAddCocktail (cocktailName: Cocktail['name']) {
+        let selectedCocktails = this.state.selectedCocktails
+        let cocktailCount = get(this.state.selectedCocktails, cocktailName, 0)
         this.setState({
-            selectedCocktails: this.state.selectedCocktails.concat([cocktail])
+            selectedCocktails: Object.assign({}, selectedCocktails, { [cocktailName]: cocktailCount + 1 })
         })
+    }
+
+    /**
+     * Subtract a quantity of the cocktail from the user's order.
+     */
+    handleSubtractCocktail (cocktailName: Cocktail['name']) {
+        let cocktailCount = get(this.state.selectedCocktails, cocktailName)
+        if (cocktailCount === 1) {
+            return this.handleRemoveCocktail(cocktailName)
+        }
+        this.setState({
+            selectedCocktails: Object.assign({}, this.state.selectedCocktails, { [cocktailName]: cocktailCount - 1 })
+        })
+    }
+
+    /**
+     * Remove all quantities of the cocktail from the user's order.
+     */
+    handleRemoveCocktail (cocktailName: Cocktail['name']) {
+        this.setState({ selectedCocktails: omit(this.state.selectedCocktails, [cocktailName]) })
     }
 
     render () {
         let { fetchingIngredients, ingredientNames, selectedIngredient, fetchingCocktails, cocktails, selectedCocktails } = this.state
         let titleForIngredientList = selectedIngredient ? 'You selected: ' + selectedIngredient : 'Choose an ingredient!'
         let titleForCocktailList = 'Suggested drinks for: ' + selectedIngredient
-        let titleForSelectedCocktails = 'Selected cocktails: ' + selectedCocktails.length
+        let titleForSelectedCocktails = 'Selected cocktails: ' + sum(Object.values(selectedCocktails))
 
         return (
             <div className="container">
@@ -110,7 +135,7 @@ class Home extends Component<Readonly<{}>, State> {
                                 :
                                 <CocktailList
                                     cocktails={cocktails}
-                                    onSelectCocktail={this.handleSelectCocktail}
+                                    onSelectCocktail={this.handleAddCocktail}
                                 />
                             }
                         </Card>
@@ -119,6 +144,9 @@ class Home extends Component<Readonly<{}>, State> {
                         <Card title={titleForSelectedCocktails}>
                             <CocktailOrder
                                 cocktails={selectedCocktails}
+                                onAddCocktail={this.handleAddCocktail}
+                                onSubtractCocktail={this.handleSubtractCocktail}
+                                onRemoveCocktail={this.handleRemoveCocktail}
                             />
                         </Card>
                     </div>

@@ -22,3 +22,7 @@ export interface Cocktail {
      */
     thumbnailUrl: string
 }
+
+export interface SelectedCocktails {
+    [cocktailName: string]: number
+}

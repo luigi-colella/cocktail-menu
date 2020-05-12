@@ -1,36 +1,48 @@
-import { countBy, keyBy, values } from 'lodash'
 import React, { Component } from 'react';
-import { Cocktail } from '../../../types';
+import { SelectedCocktails, Cocktail } from '../../../types';
 
 interface Props {
-    cocktails: Cocktail[]
+    cocktails: SelectedCocktails,
+    onAddCocktail: (cocktailName: Cocktail['name']) => void,
+    onSubtractCocktail: (cocktailName: Cocktail['name']) => void,
+    onRemoveCocktail: (cocktailName: Cocktail['name']) => void
 }
 
 export default class CocktailOrder extends Component<Props, {}> {
     render () {
-        let { cocktails } = this.props
-        let cocktailsCount = countBy(cocktails, (cocktail: Cocktail) => {
-            return cocktail.name
-        })
-        let cocktailsGroupByName = values(keyBy(cocktails, (cocktail: Cocktail) => {
-            return cocktail.name
-        })).sort((cocktailA: Cocktail, cocktailB: Cocktail) => {
-            return cocktailA.name > cocktailB.name ? 1 : -1
-        })
+        let { cocktails, onAddCocktail, onSubtractCocktail, onRemoveCocktail } = this.props
+        let sortedCocktailNames = Object.keys(cocktails).sort()
 
         return (
             <div>
-                {cocktails && cocktails.length ?
+                {sortedCocktailNames.length ?
                     <div className="row">
-                        {cocktailsGroupByName.map((cocktail: Cocktail) => {
+                        {sortedCocktailNames.map(cocktailName => {
                             return (
-                                <div className="col-sm-12 mb-3" key={cocktail.name}>
+                                <div className="col-sm-12 mb-3" key={cocktailName}>
                                     <div className="card">
                                         <div className="card-body">
                                             <h5 className="card-title">
-                                                <span className="float-left">{cocktail.name}</span>
-                                                <span className="float-right">{cocktailsCount[cocktail.name]}</span>
+                                                <span className="float-left">{cocktailName}</span>
+                                                <span className="float-right">{cocktails[cocktailName]}</span>
                                             </h5>
+                                        </div>
+                                        <div className="card-body">
+                                            <a
+                                                href="#"
+                                                className="btn btn-dark btn-sm float-right ml-1"
+                                                onClick={() => { onAddCocktail(cocktailName) }}
+                                            >+</a>
+                                            <a
+                                                href="#"
+                                                className="btn btn-dark btn-sm float-right ml-1"
+                                                onClick={() => { onSubtractCocktail(cocktailName) }}
+                                            >-</a>
+                                            <a
+                                                href="#"
+                                                className="btn btn-danger btn-sm float-right ml-1"
+                                                onClick={() => { onRemoveCocktail(cocktailName) }}
+                                            >Remove</a>
                                         </div>
                                     </div>
                                 </div>

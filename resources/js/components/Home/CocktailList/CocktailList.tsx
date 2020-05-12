@@ -3,7 +3,7 @@ import { Cocktail } from '../../../types';
 
 interface Props {
     cocktails: Cocktail[],
-    onSelectCocktail: (cocktail: Cocktail) => void
+    onSelectCocktail: (cocktailName: Cocktail['name']) => void
 }
 
 export default class CocktailList extends Component<Props> {
@@ -16,7 +16,7 @@ export default class CocktailList extends Component<Props> {
                     <div className="row">
                         {cocktails.map(cocktail => {
                             return (
-                                <div className="col-sm-12 mb-3" key={cocktail.name} onClick={() => { onSelectCocktail(cocktail) }}>
+                                <div className="col-sm-12 mb-3" key={cocktail.name} onClick={() => { onSelectCocktail(cocktail.name) }}>
                                     <div className="card hover-effect">
                                         <div className="card-body">
                                             <div className="media">
