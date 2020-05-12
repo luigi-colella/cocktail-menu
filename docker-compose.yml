@@ -29,7 +29,7 @@ services:
 
     nginx:
         build:
-            context: ./.docker/nginx
+            context: ./docker/nginx
         restart: always
         volumes:
             - "./public:/var/www/html/public"
