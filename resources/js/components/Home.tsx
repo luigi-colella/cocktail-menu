@@ -167,7 +167,7 @@ class Home extends Component<Readonly<{}>, State> {
                     <div className="col-md-4">
                         <Card
                             title={titleForSelectedCocktails}
-                            actionButton={showSubmitButton ? { text: 'Order!', cb: this.submitOrder } : undefined}
+                            actionButton={showSubmitButton ? { text: 'ORDER!', cb: this.submitOrder } : undefined}
                         >
                             <CocktailOrder
                                 cocktails={selectedCocktails}
