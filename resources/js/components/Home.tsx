@@ -6,7 +6,7 @@ import api from '../services/api';
 import Spinner from './Home/Spinner';
 import Card from './Home/Card';
 import CocktailOrder from './Home/CocktailOrder/CocktailOrder';
-import { Cocktail, SelectedCocktails } from '../types';
+import { Cocktail, SelectedCocktails, Ingredient } from '../types';
 import { get, omit, sum } from 'lodash';
 
 interface State {
@@ -58,7 +58,7 @@ class Home extends Component<Readonly<{}>, State> {
      * Save the ingredient selected by the user in the state
      * and fetch the related drinks.
      */
-    handleSelectIngredient (ingredient: string) {
+    handleSelectIngredient (ingredient: Ingredient['name']) {
         this.setState({
             fetchingCocktails: true,
             selectedIngredient: ingredient
