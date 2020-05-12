@@ -24,5 +24,9 @@ export interface Cocktail {
 }
 
 export interface SelectedCocktails {
+    /**
+     * A collection with the cocktails ordered by the user.
+     * Each key-value pair identifies a cocktail (by its name) and the quantity ordered.
+     */
     [cocktailName: string]: number
 }
