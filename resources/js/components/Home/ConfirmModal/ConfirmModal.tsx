@@ -18,10 +18,11 @@ export default function ConfirmModal (props: Props) {
                     </button>
                 </div>
                 <div className="modal-body">
-                    <h5 className="text-center my-2">{props.text}</h5>
+                    <h4 className="text-center mb-4">{props.text}</h4>
+                    <img src="./img/cheers.gif" className="mx-auto d-block rounded-lg"></img>
                 </div>
                 <div className="modal-footer border-top-0">
-                    <button type="button" className="btn btn-success" onClick={props.onStartNewOrder} data-dismiss="modal">New order</button>
+                    <button type="button" className="btn btn-success" onClick={props.onStartNewOrder} data-dismiss="modal">NEW ORDER</button>
                 </div>
                 </div>
             </div>
