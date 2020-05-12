@@ -1,9 +1,27 @@
 # Cocktail Menu
 An interactive menu where you can choose and order your favourite drinks 🍺🍹
 
+# Summary
+1. [Prerequisites](#Prerequisites)
+2. [Stack](#stack)
+3. [Getting started](#getting-started)
+4. [Useful commands](#useful-commands)
+5. [Credits](#credits)
+
 # Prerequisites
 
 - Docker Compose >= 3.3
+
+# Stack
+
+![Laravel](https://raw.githubusercontent.com/lgcolella/cocktail-menu/master/.repository/laravel.png "Laravel")
+![React](https://raw.githubusercontent.com/lgcolella/cocktail-menu/master/.repository/react.png "React")
+![Typescript](https://raw.githubusercontent.com/lgcolella/cocktail-menu/master/.repository/typescript.png "Typescript")
+![Bootstrap](https://raw.githubusercontent.com/lgcolella/cocktail-menu/master/.repository/bootstrap.png "Bootstrap")
+![MySQL](https://raw.githubusercontent.com/lgcolella/cocktail-menu/master/.repository/mysql.png "MySQL")
+![Nginx](https://raw.githubusercontent.com/lgcolella/cocktail-menu/master/.repository/nginx.png "Nginx")
+![Docker](https://raw.githubusercontent.com/lgcolella/cocktail-menu/master/.repository/docker.png "Docker")
+
 
 # Getting started
 
@@ -32,3 +50,42 @@ Then you can visit the application at `localhost:8000`.
 > If you installed Docker by using Docker Toolbox, you may need to replace `localhost` with the output of `docker-machine ip`.
 
 If you want manage the database with a visual GUI, you can use Adminer at `localhost:8080` (The database credentials are those in the .env file).
+
+# Useful commands
+
+```sh
+# Start application and related services
+docker-compose up -d
+
+# Shut down application and services
+docker-compose down
+
+# Shut down application, services and delete volumes, orphans containers and images
+docker-compose down -v --remove-orphans --rmi=all
+
+# Log to the bash of the app container
+docker-compose exec app bash
+```
+
+When you log into the app container, you can run any command or script on top of php and nodejs. For example:
+
+```sh
+# Build the frontend assets
+npm run prod
+
+# Build the frontend assets on change
+npm run watch
+
+# Prettify the code
+npm run prettify
+
+# Update the Composer autoloader
+composer dump-autoload
+
+# Run the Artisan Tinker shell
+php artisan tinker
+```
+
+# Credits
+
+I used https://www.thecocktaildb.com/ as API to retrieve data about drinks.
