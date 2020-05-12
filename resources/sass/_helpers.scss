@@ -3,6 +3,9 @@
     transition: background-color .2s;
     &:hover {
         cursor: pointer;
-        background-color: $gray;
+        background-color: $gray-100;
+    }
+    &:active {
+        background-color: $gray-200;
     }
 }

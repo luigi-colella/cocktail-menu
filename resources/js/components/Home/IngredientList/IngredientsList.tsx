@@ -13,7 +13,7 @@ export default class IngredientList extends Component<Props, {}> {
         return (
             <div>
                 {ingredientNames && ingredientNames.length ? 
-                    <table className="table table-hover">
+                    <table className="table">
                         <tbody>
                             {ingredientNames.map(name => {
                                 let className = selectedIngredient === name ? 'bg-dark text-white' : ''
