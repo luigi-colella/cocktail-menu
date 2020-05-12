@@ -1,6 +1,3 @@
-# Generate the .env from .env.example
-cp .env.example .env
-
 # Install Laravel dependencies
 composer install
 
