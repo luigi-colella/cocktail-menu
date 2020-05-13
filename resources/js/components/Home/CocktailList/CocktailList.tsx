@@ -43,7 +43,7 @@ export default class CocktailList extends Component<Props> {
             })}
           </div>
         ) : (
-          'No suggested drinks 🍻'
+          'No suggested drinks 🍹'
         )}
       </div>
     )

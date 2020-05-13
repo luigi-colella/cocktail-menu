@@ -69,7 +69,7 @@ export default class CocktailOrder extends Component<Props, {}> {
             })}
           </div>
         ) : (
-          'Your cart is empty 🍻'
+          'Your cart is empty 🍸'
         )}
       </div>
     )
