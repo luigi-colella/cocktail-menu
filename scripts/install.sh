@@ -13,5 +13,8 @@ php artisan migrate
 # Run db seeders
 php artisan db:seed
 
+# Setup Laravel Passport
+php artisan passport:install
+
 # Build frontend
 yarn run production
