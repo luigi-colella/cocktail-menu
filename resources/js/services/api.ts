@@ -17,9 +17,9 @@ export default {
    * Get a list of cocktails according to provided ingredient.
    */
   getCocktailsByIngredient(ingredient: string): Promise<Cocktail[]> {
-    return Axios
-      .get('/api/cocktails', { params: { ingredient }})
-      .then((response) => response.data)
+    return Axios.get('/api/cocktails', { params: { ingredient } }).then(
+      (response) => response.data
+    )
   },
 
   /**
@@ -27,8 +27,8 @@ export default {
    */
   submitOrder(order: SelectedCocktails): Promise<{}> {
     let cocktails = map(order, (quantity, name) => ({ quantity, name }))
-    return Axios
-      .post('/api/cocktails-order', { cocktails })
-      .then((response) => response.data)
-  }
+    return Axios.post('/api/cocktails-order', { cocktails }).then(
+      (response) => response.data
+    )
+  },
 }
