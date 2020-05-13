@@ -68,7 +68,7 @@
                         <div class="form-group row mb-0">
                             <div class="col-md-12">
                                 <div class="alert alert-warning" role="alert">
-                                    You can login with the test account by using these credentials: taylor@test.com, my-password
+                                    You can login with the test account by using these credentials: taylor@test.com, mypassword
                                 </div>
                             </div>
                         </div>
