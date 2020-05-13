@@ -34,7 +34,7 @@ git clone https://github.com/lgcolella/cocktail-menu.git
 # Navigate into the project folder
 cd cocktail-menu
 
-# Generate the .env from .env.example
+# Generate the .env from the default one
 cp .env.example .env
 
 # Start docker-compose with services
@@ -43,7 +43,7 @@ docker-compose up -d
 # Setup Laravel and install dependencies
 docker-compose exec app bash -c "./scripts/install.sh"
 ```
-> According to your env, you may give executable permissions to `./scripts/install.sh` and `composer.phar` to execute the above commands.
+> According to your env, you may need to give executable permissions to `composer.phar` and `./scripts/install.sh` to execute the above commands. You may also need to give readable and writable permission to `/storage` folder to make the application working fine.
 
 Then you can visit the application at `localhost:8000`.
 
@@ -88,4 +88,4 @@ php artisan tinker
 
 # Credits
 
-I used https://www.thecocktaildb.com/ as API to retrieve data about drinks.
+The application uses https://www.thecocktaildb.com/ as API to retrieve data about drinks.
