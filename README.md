@@ -72,7 +72,7 @@ docker-compose down -v --remove-orphans --rmi=all
 docker-compose exec app bash
 ```
 
-When you log into the app container, you can run any command or script on top of php and nodejs. For example:
+When you log into the app container, you can run any php or nodejs script. For example:
 
 ```sh
 # Build the frontend assets
