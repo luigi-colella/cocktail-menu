@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\Entities;
+namespace App\Models;
 
 use Illuminate\Contracts\Support\Arrayable;
 
 class Cocktail implements Arrayable
 {
     /**
-     * The id of cocktail (provided by the external API)
+     * The id of cocktail (provided by external API)
      * 
      * @var string
      */

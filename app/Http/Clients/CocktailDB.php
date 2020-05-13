@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Http\Clients;
 
-use App\Entities\Cocktail;
-use App\Entities\Ingredient;
+use App\Models\Cocktail;
+use App\Models\Ingredient;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Http;
 

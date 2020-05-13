@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-use App\Entities\Ingredient;
+use App\Models\Ingredient;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CocktailRequest extends FormRequest

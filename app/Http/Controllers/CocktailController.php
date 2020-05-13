@@ -14,7 +14,7 @@ class CocktailController extends Controller
      * @param Request $request
      * @param CocktailDB $cocktailDB
      * 
-     * @return Collection[\App\Entities\Cocktail]
+     * @return Collection[\App\Models\Cocktail]
      */
     public function index(CocktailRequest $request, CocktailDB $cocktailDB): Collection
     {
