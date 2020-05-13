@@ -2,11 +2,16 @@
 An interactive menu where you can choose and order your favourite drinks 🍺🍹
 
 # Summary
-1. [Prerequisites](#Prerequisites)
-2. [Stack](#stack)
-3. [Getting started](#getting-started)
-4. [Useful commands](#useful-commands)
-5. [Credits](#credits)
+1. [Demo](#demo)
+2. [Prerequisites](#prerequisites)
+3. [Stack](#stack)
+4. [Getting started](#getting-started)
+5. [Useful commands](#useful-commands)
+6. [Credits](#credits)
+
+# Demo
+
+![Demo](https://raw.githubusercontent.com/lgcolella/cocktail-menu/master/.repository/demo.gif "Demo")
 
 # Prerequisites
 
