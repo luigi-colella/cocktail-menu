@@ -18,4 +18,5 @@ Route::middleware(['auth:api'])->group(function () {
     Route::get('/user', function (Request $request) { return $request->user(); });
     Route::get('/ingredients', 'IngredientController@index');
     Route::get('/cocktails', 'CocktailController@index');
+    Route::post('/cocktails-order', 'CocktailController@saveOrder');
 });

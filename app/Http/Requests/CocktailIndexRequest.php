@@ -5,14 +5,14 @@ namespace App\Http\Requests;
 use App\Models\Ingredient;
 use Illuminate\Foundation\Http\FormRequest;
 
-class CocktailRequest extends FormRequest
+class CocktailIndexRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
@@ -22,7 +22,7 @@ class CocktailRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             'ingredient' => 'required|string',
@@ -36,6 +36,6 @@ class CocktailRequest extends FormRequest
      */
     public function getIngredient(): Ingredient
     {
-        return new Ingredient($this->get('ingredient'));
+        return new Ingredient($this->input('ingredient'));
     }
 }

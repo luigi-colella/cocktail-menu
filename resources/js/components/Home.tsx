@@ -125,7 +125,12 @@ class Home extends Component<Readonly<{}>, State> {
    * Submit the current order of cocktails.
    */
   submitOrder() {
-    $('#' + this.state.confirmModalId).modal('show')
+    api
+      .submitOrder(this.state.selectedCocktails)
+      .then(() => {
+        $('#' + this.state.confirmModalId).modal('show')
+      })
+    
   }
 
   /**
