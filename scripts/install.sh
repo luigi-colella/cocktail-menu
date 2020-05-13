@@ -13,5 +13,5 @@ php artisan migrate
 # Run db seeders
 php artisan db:seed
 
-# Build assets files
+# Build frontend
 yarn run production
