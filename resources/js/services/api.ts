@@ -25,7 +25,7 @@ export default {
   /**
    * Save the user's order.
    */
-  submitOrder(order: SelectedCocktails): Promise<{}> {
+  submitOrder(order: SelectedCocktails): Promise<number> {
     let cocktails = map(order, (quantity, name) => ({ quantity, name }))
     return Axios.post('/api/cocktails-order', { cocktails }).then(
       (response) => response.data
